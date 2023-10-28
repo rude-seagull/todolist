@@ -12,6 +12,7 @@ const FILTER_MAP = {
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function App({ initialTasks }) {
+  console.count("Rendering APP Counter")
   const [filter, setFilter] = useState("All");
   const [tasks, setTasks] = useState(initialTasks);
 

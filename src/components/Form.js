@@ -1,25 +1,26 @@
 import { useState } from "react"
 
 function Form({ addTask }) {
-    const [name, setName] = useState("");
+  console.count("Rendering FORM Counter")
+  const [name, setName] = useState("");
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        addTask(name)
-        setName("");
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    addTask(name)
+    setName("");
+  }
 
-    function handleChange(e) {
-        setName(e.target.value)
-    }
+  function handleChange(e) {
+    setName(e.target.value)
+  }
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <h2 className="label-wrapper">
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2 className="label-wrapper">
         <label htmlFor="new-todo-input" className="label__lg">
           What needs to be done?
         </label>
-            </h2>
+      </h2>
       <input
         type="text"
         id="new-todo-input"
@@ -33,7 +34,7 @@ function Form({ addTask }) {
         Add
       </button>
     </form>
-    );
+  );
 }
 
 export default Form;

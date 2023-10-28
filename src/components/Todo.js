@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 function Todo({ name, completed, id, toggleCompleted, deleteTask, editTask }) {
+  console.count("Rendering TODO Counter")
   const [isEditing, setEditing] = useState(false);
   const [newName, setNewName] = useState("");
 

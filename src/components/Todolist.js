@@ -2,6 +2,7 @@ import React from "react";
 import Todo from "./Todo";
 
 function Todolist({ tasks, setTasks, filterMap, filter }) {
+    console.count("Rendering TODOLIST Counter")
     function deleteTask(id) {
         const remainingTasks = tasks.filter(task => id !== task.id);
         setTasks(remainingTasks);

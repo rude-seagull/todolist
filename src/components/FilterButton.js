@@ -1,4 +1,5 @@
 function FilterButton({ name, isActive, setFilter }) {
+  console.count("Rendering FILTERBUTTON Counter")
   return (
     <button
       type="button"
