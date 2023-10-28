@@ -18,7 +18,7 @@ function Form({ addTask }) {
     <form onSubmit={handleSubmit}>
       <h2 className="label-wrapper">
         <label htmlFor="new-todo-input" className="label__lg">
-          What needs to be done?
+          Brol à faire
         </label>
       </h2>
       <input
@@ -31,7 +31,7 @@ function Form({ addTask }) {
         onChange={handleChange}
       />
       <button type="submit" className="btn btn__primary btn__lg">
-        Add
+        Ajouter un brol que tu ne feras pas
       </button>
     </form>
   );

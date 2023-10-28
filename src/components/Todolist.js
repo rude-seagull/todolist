@@ -6,6 +6,7 @@ function Todolist({ tasks, setTasks, filterMap, filter }) {
     function deleteTask(id) {
         const remainingTasks = tasks.filter(task => id !== task.id);
         setTasks(remainingTasks);
+        localStorage.setItem("tasks", JSON.stringify(remainingTasks))
     }
 
     function editTask(id, newName) {
@@ -16,6 +17,7 @@ function Todolist({ tasks, setTasks, filterMap, filter }) {
             return task;
         });
         setTasks(editedTasks);
+        localStorage.setItem("tasks", JSON.stringify(editedTasks))
     }
 
     function toggleCompleteStatus(id) {
@@ -26,6 +28,7 @@ function Todolist({ tasks, setTasks, filterMap, filter }) {
             return task;
         });
         setTasks(updatedTasks);
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks))
     }
 
     return (

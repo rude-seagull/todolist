@@ -1,7 +1,7 @@
 import Todolist from "./components/Todolist";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const FILTER_MAP = {
   All: () => true,
@@ -14,10 +14,21 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);
 function App({ initialTasks }) {
   console.count("Rendering APP Counter")
   const [filter, setFilter] = useState("All");
-  const [tasks, setTasks] = useState(initialTasks);
+  const [tasks, setTasks] = useState(initialTasks); // does not work with localStorage
+
+  useEffect(() => {
+    console.count("APP useEffect Counter")
+    const storedTasks = localStorage.getItem("tasks")
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks))
+    }
+  }, [])
 
   function addTask(name) {
-    setTasks([...tasks, { id: "todo-" + tasks.length, name: name, completed: false }])
+    const updatedTasks = [...tasks, { id: "todo-" + tasks.length, name: name, completed: false }]
+    setTasks(updatedTasks)
+    // localStorage.setItem("tasks_not_working", JSON.stringify(tasks)) Why is this not working ?
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks))
   }
 
   return (
