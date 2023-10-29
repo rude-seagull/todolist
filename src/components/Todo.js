@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function Todo({ name, completed, id, toggleCompleted, deleteTask, editTask }) {
   console.count("Rendering TODO Counter")
+  console.log(name, completed, id)
   const [isEditing, setEditing] = useState(false);
   const [newName, setNewName] = useState("");
 
@@ -39,7 +40,7 @@ function Todo({ name, completed, id, toggleCompleted, deleteTask, editTask }) {
         <input
           id={id}
           type="checkbox"
-          defaultChecked={completed}
+          checked={completed}
           onChange={() => toggleCompleted(id)}
         />
         <label className="todo-label" htmlFor={id}>

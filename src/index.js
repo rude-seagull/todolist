@@ -11,7 +11,5 @@ const DEFAULT_TASKS = [
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App initialTasks={DEFAULT_TASKS}/> 
-  </React.StrictMode>
+  <App initialTasks={DEFAULT_TASKS} />
 );
