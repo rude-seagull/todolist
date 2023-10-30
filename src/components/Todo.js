@@ -1,7 +1,9 @@
 import { useState } from "react"
 
 export default function Todo({ todo, handleUpdateTodo, handleDeleteTodo }) {
-    const [completed, setCompleted] = useState(false)
+    console.count('Todo Render')
+    console.log(todo)
+
     const [editing, setEditing] = useState(false)
 
     const handleCheckboxClick = () => handleUpdateTodo({

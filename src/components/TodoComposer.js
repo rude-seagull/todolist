@@ -9,6 +9,8 @@ function createTodo(label) {
 }
 
 export default function TodoComposer({ handleAddTodo }) {
+  console.count('TodoComposer Render')
+
   const [label, setLabel] = useState("")
 
   const handleUpdateLabel = (e) => setLabel(e.target.value)

@@ -3,6 +3,8 @@ import Todo from "./Todo";
 import TodoComposer from "./TodoComposer"
 
 export default function Todolist() {
+    console.count('Todolist Render')
+    
     const [todos, setTodos] = useState([
         { id: 1, label: "Learn React", completed: false },
         { id: 2, label: "Learn Next.js", completed: false },
