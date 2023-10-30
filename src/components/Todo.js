@@ -1,67 +1,53 @@
-import { useState } from "react";
+import { useState } from "react"
 
-function Todo({ name, completed, id, toggleCompleted, deleteTask, editTask }) {
-  console.count("Rendering TODO Counter")
-  console.log(name, completed, id)
-  const [isEditing, setEditing] = useState(false);
-  const [newName, setNewName] = useState("");
+export default function Todo({ todo, handleUpdateTodo, handleDeleteTodo }) {
+    const [completed, setCompleted] = useState(false)
+    const [editing, setEditing] = useState(false)
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    editTask(id, newName);
-    setNewName("");
-    setEditing(false);
-  }
+    const handleCheckboxClick = () => handleUpdateTodo({
+        ...todo,
+        completed: !todo.completed
+    })
 
-  const editingTemplate = (
-    <form className="stack-small" onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label className="todo-label" htmlFor={id}>
-          New name for {name}
-        </label>
-        <input id={id} className="todo-text" type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
-      </div>
-      <div className="btn-group">
-        <button type="button" className="btn todo-cancel" onClick={() => setEditing(false)}>
-          Cancel
-          <span className="visually-hidden">renaming {name}</span>
-        </button>
-        <button type="submit" className="btn btn__primary todo-edit">
-          Save
-          <span className="visually-hidden">new name for {name}</span>
-        </button>
-      </div>
-    </form>
-  );
+    const handleEditClick = () => setEditing(!editing)
 
-  const viewTemplate = (
-    <div className="stack-small">
-      <div className="c-cb">
-        <input
-          id={id}
-          type="checkbox"
-          checked={completed}
-          onChange={() => toggleCompleted(id)}
-        />
-        <label className="todo-label" htmlFor={id}>
-          {name}
-        </label>
-      </div>
-      <div className="btn-group">
-        <button type="button" className="btn" onClick={() => setEditing(true)}>
-          Edit <span className="visually-hidden">{name}</span>
-        </button>
-        <button
-          type="button"
-          className="btn btn__danger"
-          onClick={() => deleteTask(id)}>
-          Delete <span className="visually-hidden">{name}</span>
-        </button>
-      </div>
-    </div>
-  );
+    const handleUpdateLabel = (e) => handleUpdateTodo({
+        ...todo,
+        label: e.target.value
+    })
 
-  return <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>;
+    const handleDeleteClick = () => handleDeleteTodo(todo.id)
+
+    return (
+        <li>
+            <label htmlFor={todo.id}>
+                <div>
+                    <input
+                        type="checkbox"
+                        id={todo.id}
+                        checked={todo.completed}
+                        onChange={handleCheckboxClick}
+                    />
+                    <span />
+                </div>
+                {editing === true ? (
+                    <input
+                        type="text"
+                        value={todo.label}
+                        onChange={handleUpdateLabel}
+                    />
+                ) : (
+                    <span>{todo.label}</span>
+                )}
+            </label>
+            <button onClick={handleEditClick}>
+                {editing ? "Save" : "Edit"}
+            </button>
+            {!editing && (
+                <button onClick={handleDeleteClick}>
+                    Delete
+                </button>
+            )}
+        </li>
+    )
 }
-
-export default Todo;

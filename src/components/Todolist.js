@@ -1,59 +1,42 @@
-import React from "react";
+import { useState } from "react";
 import Todo from "./Todo";
+import TodoComposer from "./TodoComposer"
 
-function Todolist({ tasks, setTasks, filterMap, filter }) {
-    console.count("Rendering TODOLIST Counter")
-    function deleteTask(id) {
-        const remainingTasks = tasks.filter(task => id !== task.id);
-        setTasks(remainingTasks);
-        localStorage.setItem("tasks", JSON.stringify(remainingTasks))
+export default function Todolist() {
+    const [todos, setTodos] = useState([
+        { id: 1, label: "Learn React", completed: false },
+        { id: 2, label: "Learn Next.js", completed: false },
+        { id: 3, label: "Learn React Query", completed: false }
+    ])
+
+    const handleUpdateTodo = (updatedTodo) => {
+        const newTodos = todos.map((todo) =>
+            todo.id === updatedTodo.id ? updatedTodo : todo
+        )
+        setTodos(newTodos)
     }
 
-    function editTask(id, newName) {
-        const editedTasks = tasks.map(task => {
-            if (id === task.id) {
-                return { ...task, name: newName }
-            }
-            return task;
-        });
-        setTasks(editedTasks);
-        localStorage.setItem("tasks", JSON.stringify(editedTasks))
+    const handleDeleteTodo = (id) => {
+        const newTodos = todos.filter((todo) => todo.id !== id)
+        setTodos(newTodos)
     }
 
-    function toggleCompleteStatus(id) {
-        const updatedTasks = tasks.map(task => {
-            if (id === task.id) {
-                return { ...task, completed: !task.completed }
-            }
-            return task;
-        });
-        setTasks(updatedTasks);
-        localStorage.setItem("tasks", JSON.stringify(updatedTasks))
+    const handleAddTodo = (newTodo) => {
+        const newTodos = [...todos, newTodo]
+        setTodos(newTodos)
     }
 
     return (
-        <React.Fragment>
-            <h2 id="list-heading">{tasks.length} {tasks.length !== 1 ? "tasks" : "task"} remaining</h2>
-            <ul
-                role="list"
-                className="todo-list stack-large stack-exception"
-                aria-labelledby="list-heading">
-                {tasks
-                    .filter(filterMap[filter])
-                    .map((task) => (
-                        <Todo
-                            id={task.id}
-                            name={task.name}
-                            completed={task.completed}
-                            key={task.id}
-                            toggleCompleted={toggleCompleteStatus}
-                            deleteTask={deleteTask}
-                            editTask={editTask}
-                        />
-                    ))}
-            </ul>
-        </React.Fragment>
+        <ul>
+            <TodoComposer handleAddTodo={handleAddTodo} />
+            {todos.map((todo) => (
+                <Todo
+                    key={todo.id}
+                    todo={todo}
+                    handleUpdateTodo={handleUpdateTodo}
+                    handleDeleteTodo={handleDeleteTodo}
+                />
+            ))}
+        </ul>
     )
 }
-
-export default Todolist;
